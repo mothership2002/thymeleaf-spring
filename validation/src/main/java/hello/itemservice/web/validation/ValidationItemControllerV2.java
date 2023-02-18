@@ -187,6 +187,28 @@ public class ValidationItemControllerV2 {
             }
         }
 
+//        DefaultMessageCodesResolver 의 기본 메시지 생성 규칙
+
+//        Object
+//        객체 오류의 경우 다음 순서로 2가지 생성
+//        1.: errorCode + "." + object
+//        2.: errorCode
+//        예) 오류 코드: required, object: item
+//        1.: required.item
+//        2.: required
+
+//        field
+//        필드 오류의 경우 다음 순서로 4가지 메시지 코드 생성
+//        1.: errorCode + "." + object + "." + field
+//        2.: errorCode + "." + field
+//        3.: errorCode + "." + field TYPE
+//        4.: errorCode
+//        예) 오류 코드: typeMismatch, object name "user", field "age", field type: int
+//        1. "typeMismatch.user.age"
+//        2. "typeMismatch.age"
+//        3. "typeMismatch.int"
+//        4. "typeMismatch"
+
         if (br.hasErrors()) {
             log.info("errors={}", br);
             return "validation/v2/addForm";
