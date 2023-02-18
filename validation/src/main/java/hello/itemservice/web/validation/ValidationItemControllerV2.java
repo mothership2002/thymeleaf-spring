@@ -280,7 +280,7 @@ public class ValidationItemControllerV2 {
 
     @ResponseBody
     @GetMapping("/test/{number}")
-    public String testing(@PathVariable Integer number) {
+    public String testing(@PathVariable Long number) {
         return itemValidator.formatting(number);
     }
 
