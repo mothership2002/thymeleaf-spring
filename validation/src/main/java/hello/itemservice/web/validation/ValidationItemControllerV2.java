@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +24,7 @@ import java.util.Stack;
 public class ValidationItemControllerV2 {
 
     private final ItemRepository itemRepository;
+    private final ItemValidator itemValidator;
 
     @GetMapping
     public String items(Model model) {
@@ -161,53 +163,73 @@ public class ValidationItemControllerV2 {
 //        return "redirect:/validation/v2/items/{itemId}";
 //    }
 
+//    @PostMapping("/add")
+//    public String addItemV4(@ModelAttribute Item item, BindingResult br,
+//                            RedirectAttributes redirectAttributes) {
+//
+//
+////        ValidationUtils.rejectIfEmptyOrWhitespace(br, "itemName", "required");
+//
+//        if (!StringUtils.hasText(item.getItemName())) {
+//            br.rejectValue("itemName", "required");
+//        }
+//
+//        if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
+//            br.rejectValue("price", "range",
+//                    new Object[]{formatting(1000), formatting(1000000)}, null);
+//        }
+//
+//        if (item.getQuantity() == null || item.getQuantity() > 9999) {
+//            br.rejectValue("quantity", "max",
+//                    new Object[]{formatting(9999)}, null);
+//        }
+//
+//        if (item.getQuantity() != null && item.getPrice() != null) {
+//            int resultPrice = item.getQuantity() * item.getPrice();
+//            if (resultPrice < 10000) {
+//                br.reject("totalPriceMin", new Object[]{ formatting(10000), formatting(resultPrice)}, null);
+//            }
+//        }
+//
+////        DefaultMessageCodesResolver 의 기본 메시지 생성 규칙
+//
+////        Object
+////        객체 오류의 경우 다음 순서로 2가지 생성
+////        1.: errorCode + "." + object
+////        2.: errorCode
+////        예) 오류 코드: required, object: item
+////        1.: required.item
+////        2.: required
+//
+////        field
+////        필드 오류의 경우 다음 순서로 4가지 메시지 코드 생성
+////        1.: errorCode + "." + object + "." + field
+////        2.: errorCode + "." + field
+////        3.: errorCode + "." + field TYPE
+////        4.: errorCode
+////        예) 오류 코드: typeMismatch, object name "user", field "age", field type: int
+////        1. "typeMismatch.user.age"
+////        2. "typeMismatch.age"
+////        3. "typeMismatch.int"
+////        4. "typeMismatch"
+//
+//        if (br.hasErrors()) {
+//            log.info("errors={}", br);
+//            return "validation/v2/addForm";
+//        }
+//
+//        Item savedItem = itemRepository.save(item);
+//        redirectAttributes.addAttribute("itemId", savedItem.getId());
+//        redirectAttributes.addAttribute("status", true);
+//        return "redirect:/validation/v2/items/{itemId}";
+//    }
+
     @PostMapping("/add")
-    public String addItemV4(@ModelAttribute Item item, BindingResult br,
-                            RedirectAttributes redirectAttributes) {
+    public String addItemV4(@ModelAttribute Item item, BindingResult br, RedirectAttributes redirectAttributes) {
 
-
-        if (!StringUtils.hasText(item.getItemName())) {
-            br.rejectValue("itemName", "required");
+        if (itemValidator.supports(item.getClass())) {
+            itemValidator.validate(item, br);
         }
-
-        if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
-            br.rejectValue("price", "range",
-                    new Object[]{formatting(1000), formatting(1000000)}, null);
-        }
-
-        if (item.getQuantity() == null || item.getQuantity() > 9999) {
-            br.rejectValue("quantity", "max",
-                    new Object[]{formatting(9999)}, null);
-        }
-
-        if (item.getQuantity() != null && item.getPrice() != null) {
-            int resultPrice = item.getQuantity() * item.getPrice();
-            if (resultPrice < 10000) {
-                br.reject("totalPriceMin", new Object[]{ formatting(10000), formatting(resultPrice)}, null);
-            }
-        }
-
-//        DefaultMessageCodesResolver 의 기본 메시지 생성 규칙
-
-//        Object
-//        객체 오류의 경우 다음 순서로 2가지 생성
-//        1.: errorCode + "." + object
-//        2.: errorCode
-//        예) 오류 코드: required, object: item
-//        1.: required.item
-//        2.: required
-
-//        field
-//        필드 오류의 경우 다음 순서로 4가지 메시지 코드 생성
-//        1.: errorCode + "." + object + "." + field
-//        2.: errorCode + "." + field
-//        3.: errorCode + "." + field TYPE
-//        4.: errorCode
-//        예) 오류 코드: typeMismatch, object name "user", field "age", field type: int
-//        1. "typeMismatch.user.age"
-//        2. "typeMismatch.age"
-//        3. "typeMismatch.int"
-//        4. "typeMismatch"
 
         if (br.hasErrors()) {
             log.info("errors={}", br);
@@ -237,34 +259,9 @@ public class ValidationItemControllerV2 {
     @ResponseBody
     @GetMapping("/test/{number}")
     public String testing(@PathVariable Integer number) {
-        return formatting(number);
+        return itemValidator.formatting(number);
     }
 
-    public String formatting(Integer number) {
-
-        String[] numberString = String.valueOf(number).split("");
-        Integer index = 1;
-
-        Stack<String> st = new Stack<>();
-
-        for (int i = numberString.length - 1; i >= 0; i--) {
-            if (index != 4) {
-                st.push(numberString[i]);
-                index++;
-            } else {
-                st.push(",");
-                index = 1;
-                i++;
-            }
-        }
-
-        String result = "";
-        while (!st.isEmpty()) {
-            result += st.pop();
-        }
-
-        return result;
-    }
 
 }
 
