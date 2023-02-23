@@ -16,7 +16,7 @@ public class ValidationItemAPIController {
 
     @PostMapping("/add")
     public Object addItem(@RequestBody @Validated ItemSaveForm form, BindingResult br) {
-        
+
         // json dont call controller
         log.info("API controller");
 
