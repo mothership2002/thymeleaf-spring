@@ -50,4 +50,8 @@ public class SessionManager {
                 .findAny().orElse(null);
     }
 
+    public String getSessionCookieName() {
+        return SESSION_COOKIE_NAME;
+    }
+
 }
