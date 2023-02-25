@@ -20,6 +20,9 @@ import java.util.List;
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
+    
+    // 여러 메소드에서 관심(필요)로 하는 로직을 공통 관심사 -> AOP?
+
 
     private final ItemRepository itemRepository;
 
