@@ -1,11 +1,11 @@
 package hello.login.web.filter;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.UUID;
 
 @Slf4j
@@ -22,6 +22,10 @@ public class LogFilter implements Filter {
         String requestURI = req.getRequestURI();
 
         String uuid = UUID.randomUUID().toString();
+//        MDC.put("requestId", uuid);
+//        MDC.put("requestURL", requestURI);
+//        chain.doFilter(request, response);
+//        MDC.clear();
 
         try {
             log.info("REQUEST [ {} ] , [ {} ] ", uuid, requestURI);
@@ -31,9 +35,6 @@ public class LogFilter implements Filter {
         } finally {
             log.info("RESPONSE [ {} ], [ {} ]", uuid, requestURI);
         }
-        String[] a = {"Asdf","Asdfewr","!2354123","asdfwe"};
-        Arrays.stream(a).forEach(s -> System.out.println(s));
-
     }
 
     @Override

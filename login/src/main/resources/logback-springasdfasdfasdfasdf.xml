@@ -1,0 +1,34 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<configuration debug="true" scan="true" scanPeriod="10 seconds">-->
+<!--    &lt;!&ndash; :%-3relative &ndash;&gt;-->
+<!--    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            <Pattern>[%X{requestId}] [%X{requestURL}] %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Pattern>-->
+<!--        </layout>-->
+<!--    </appender>-->
+
+<!--    <appender name="SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">-->
+<!--        <discriminator>-->
+<!--            <key>requestId</key>-->
+<!--            <defaultValue>etc</defaultValue>-->
+<!--            <key>requestURL</key>-->
+<!--            <defaultValue>etc</defaultValue>-->
+<!--        </discriminator>-->
+<!--        <sift>-->
+<!--&lt;!&ndash;            <appender name="ROLLING_ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">&ndash;&gt;-->
+<!--&lt;!&ndash;                <file>./Log/${userid}/logback.log</file>&ndash;&gt;-->
+<!--&lt;!&ndash;                <encoder>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread] %-5level %logger{35} %mdc - %msg%n</pattern>&ndash;&gt;-->
+<!--&lt;!&ndash;                </encoder>&ndash;&gt;-->
+<!--&lt;!&ndash;                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <fileNamePattern>./Log/${userid}/logback.%d{yyyy-MM-dd_HH}.%i.log.gz</fileNamePattern>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <maxHistory>30</maxHistory>&ndash;&gt;-->
+<!--&lt;!&ndash;                </rollingPolicy>&ndash;&gt;-->
+<!--&lt;!&ndash;            </appender>&ndash;&gt;-->
+<!--        </sift>-->
+<!--    </appender>-->
+<!--    <root level="INFO">-->
+<!--        <appender-ref ref="STDOUT" />-->
+<!--        <appender-ref ref="SIFT" />-->
+<!--    </root>-->
+<!--</configuration>-->

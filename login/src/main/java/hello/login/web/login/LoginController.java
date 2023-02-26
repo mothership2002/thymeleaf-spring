@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -72,10 +73,35 @@ public class LoginController {
 //        return "redirect:/";
 //    }
 
+//    @PostMapping("/login")
+//    public String loginV3(@Validated @ModelAttribute LoginForm form,
+//                          BindingResult br,
+//                          HttpServletRequest req) {
+//        log.info("{}", br);
+//
+//        if (br.hasErrors()) {
+//            return "login/loginForm";
+//        }
+//
+//        Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
+//        log.info("login ? {} ", loginMember);
+//
+//        if (loginMember == null) {
+//            br.reject("loginFail", "로그인 실패");
+//            return "login/loginForm";
+//        }
+//
+//        req.getSession().setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+////        getSession(true) : 새로 생성 등등
+////        getSession(false) : 기존 세션 반환 / 비생성
+//        return "redirect:/";
+//    }
+
     @PostMapping("/login")
-    public String loginV3(@Validated @ModelAttribute LoginForm form,
+    public String loginV4(@Validated @ModelAttribute LoginForm form,
                           BindingResult br,
-                          HttpServletRequest req) {
+                          HttpServletRequest req,
+                          @RequestParam(name = "redirectURL", defaultValue = "/") String url) {
         log.info("{}", br);
 
         if (br.hasErrors()) {
@@ -91,9 +117,7 @@ public class LoginController {
         }
 
         req.getSession().setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-//        getSession(true) : 새로 생성 등등
-//        getSession(false) : 기존 세션 반환 / 비생성
-        return "redirect:/";
+        return "redirect:" + url;
     }
 
 //    @PostMapping("/logout")
@@ -118,7 +142,7 @@ public class LoginController {
     @PostMapping("/logout")
     public String logoutV3(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession(false);
-        if(session != null) {
+        if (session != null) {
             session.invalidate();
         }
         return "redirect:/";
