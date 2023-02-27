@@ -28,12 +28,12 @@ public class LogFilter implements Filter {
 //        MDC.clear();
 
         try {
-            log.info("REQUEST [ {} ] , [ {} ] ", uuid, requestURI);
+            log.info("REQUEST [{}] , [{}] ", uuid, requestURI);
             chain.doFilter(request, response);  // 매우 중요
         } catch (Exception e) {
             throw e;
         } finally {
-            log.info("RESPONSE [ {} ], [ {} ]", uuid, requestURI);
+            log.info("RESPONSE [{}], [{}]", uuid, requestURI);
         }
     }
 
