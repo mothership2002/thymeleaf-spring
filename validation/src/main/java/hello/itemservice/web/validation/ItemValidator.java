@@ -58,23 +58,35 @@ public class ItemValidator implements Validator {
 //        StringBuilder     :  문자열 연산이 많고 단일쓰레드이거나 동기화를 고려하지 않아도 되는 경우
 
 
-        Stack<Character> stack = new Stack<>();
+//        Stack<Character> stack = new Stack<>();
+//        String string = String.valueOf(number);
+//
+//        for (int i = string.length() - 1; i >= 0; i--) {
+//            stack.push(string.charAt(i));
+//            if ((string.length() - i) % 3 == 0 && i != 0) {
+//                stack.push(',');
+//            }
+//        }
+//
+//        StringBuffer result = new StringBuffer();
+//
+//        while (!stack.isEmpty()) {
+//            result.append(stack.pop());
+//        }
+//
+//        return result.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+
         String string = String.valueOf(number);
 
         for (int i = string.length() - 1; i >= 0; i--) {
-            stack.push(string.charAt(i));
+            stringBuilder.append(string.charAt(i));
             if ((string.length() - i) % 3 == 0 && i != 0) {
-                stack.push(',');
+                stringBuilder.append(',');
             }
         }
 
-        StringBuffer result = new StringBuffer();
-
-        while (!stack.isEmpty()) {
-            result.append(stack.pop());
-        }
-
-        return result.toString();
+        return stringBuilder.reverse().toString();
     }
 
 }
