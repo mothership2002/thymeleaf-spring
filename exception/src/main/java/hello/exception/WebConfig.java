@@ -13,16 +13,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LogInterceptor())
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns(
-                        "/css/**", "/*.ico"
-                        , "/error", "/error-page/**" //오류 페이지 경로
-                );
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LogInterceptor())
+//                .order(1)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns(
+//                        "/css/**", "/*.ico"
+//                        , "/error", "/error-page/**" //오류 페이지 경로
+//                );
+//    }
 
     @Bean
     public FilterRegistrationBean logFilter() {
@@ -30,7 +30,8 @@ public class WebConfig implements WebMvcConfigurer {
         filterRegistrationBean.setFilter(new LogFilter());
         filterRegistrationBean.setOrder(1);
         filterRegistrationBean.addUrlPatterns("/*");
-        filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ERROR);
+        filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST);
+        // 에러에는 필터를 실행 할 이유가 없음
 
         return filterRegistrationBean;
     }

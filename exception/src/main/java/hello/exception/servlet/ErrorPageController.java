@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
+@RequestMapping("/error-page/")
 public class ErrorPageController {
 
     //RequestDispatcher 상수로 정의되어 있음
@@ -19,14 +20,14 @@ public class ErrorPageController {
     public static final String ERROR_SERVLET_NAME = "jakarta.servlet.error.servlet_name";
     public static final String ERROR_STATUS_CODE = "jakarta.servlet.error.status_code";
 
-    @RequestMapping("/error-page/404")
+    @RequestMapping("/404")
     public String errorPage404(HttpServletRequest req, HttpServletResponse resp) {
         log.info("404");
         printErrorInfo(req);
         return "error-page/404";
     }
 
-    @RequestMapping("/error-page/500")
+    @RequestMapping("/500")
     public String errorPage500(HttpServletRequest req, HttpServletResponse resp) {
         log.info("500");
         printErrorInfo(req);
