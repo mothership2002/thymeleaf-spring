@@ -21,7 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
 //                .excludePathPatterns(
 //                        "/css/**", "/*.ico"
 //                        , "/error", "/error-page/**" //오류 페이지 경로
-//                );
+//                ); 
 //    }
 
     @Bean
@@ -32,6 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
         filterRegistrationBean.addUrlPatterns("/*");
         filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         // 에러에는 필터를 실행 할 이유가 없음
+        // 테스트
 
         return filterRegistrationBean;
     }
