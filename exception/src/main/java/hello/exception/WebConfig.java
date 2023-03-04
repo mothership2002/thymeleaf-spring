@@ -30,12 +30,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean logFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new LogFilter());
-        filterRegistrationBean.setOrder(1);
-        filterRegistrationBean.addUrlPatterns("/*");
-        filterRegistrationBean.setDispatcherTypes(DispatcherType.REQUEST);
+        filterRegistrationBean.setFilter( new LogFilter() );
+        filterRegistrationBean.setOrder( 1 );
+        filterRegistrationBean.addUrlPatterns( "/*" );
+        filterRegistrationBean.setDispatcherTypes( DispatcherType.REQUEST );
         // 에러에는 필터를 실행 할 이유가 없음
-        // 테스트
 
         return filterRegistrationBean;
     }

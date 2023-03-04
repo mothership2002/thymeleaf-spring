@@ -10,22 +10,26 @@ import java.io.IOException;
 @Slf4j
 @Controller
 public class ServletExController {
+
     // sendError 코드에 따른 템플릿 error 탐색
-    @GetMapping("/error-ex")
+    @GetMapping( "/error-ex" )
     public void errorEx() {
-        throw new RuntimeException("예외 발생!");
+        throw new RuntimeException( "예외 발생!" );
     }
 
-    @GetMapping("/error-400")
-    public void error400(HttpServletResponse response) throws IOException {
-        response.sendError(400, "400 오류!");
+    @GetMapping( "/error-400" )
+    public void error400( HttpServletResponse response ) throws IOException {
+        response.sendError( 400, "400 오류!" );
     }
-    @GetMapping("/error-404")
-    public void error404(HttpServletResponse response) throws IOException {
-        response.sendError(404, "404 오류!");
+
+    @GetMapping( "/error-404" )
+    public void error404( HttpServletResponse response ) throws IOException {
+        response.sendError( 404, "404 오류!" );
     }
-    @GetMapping("/error-500")
-    public void error500(HttpServletResponse response) throws IOException {
-        response.sendError(500);
+
+    @GetMapping( "/error-500" )
+    public void error500( HttpServletResponse response ) throws IOException {
+        response.sendError( 500 );
     }
+
 }
