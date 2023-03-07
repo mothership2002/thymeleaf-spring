@@ -1,5 +1,6 @@
 package hello.exception.api;
 
+import hello.exception.web.exception.UserException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +16,15 @@ public class ApiExceptionController {
     @GetMapping( "/api/members/{id}" )
     public MemberDto getMember( @PathVariable String id ) {
         if ( id.equals( "ex" ) ) {
-            throw new RuntimeException("ex");
+            throw new RuntimeException( "ex" );
         }
 
-        if( id.equals("bad")) {
+        if ( id.equals( "bad" ) ) {
             throw new IllegalArgumentException();
+        }
+        if ( id.equals( "user-ex" ) ) {
+
+            throw new UserException();
         }
         return new MemberDto( id, "hello " + id );
     }
