@@ -25,10 +25,11 @@ public class ApiExceptionController {
         if ( id.equals( "bad" ) ) {
             throw new IllegalArgumentException();
         }
-        if ( id.equals( "user-ex" ) ) {
 
+        if ( id.equals( "user-ex" ) ) {
             throw new UserException();
         }
+        
         return new MemberDto( id, "hello " + id );
     }
 

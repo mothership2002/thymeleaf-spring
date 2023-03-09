@@ -23,9 +23,11 @@ public class UserHandlerExceptionResolver implements HandlerExceptionResolver {
     public ModelAndView resolveException( HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex ) {
         try {
             if ( ex instanceof UserException ) {
+
                 log.info( "UserException resolver to 400" );
                 String accept = request.getHeader( "accept" );
                 response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
+
                 if ( accept.equals( CONTENT_TYPE ) ) {
 
                     Map<String, Object> errorResult = new HashMap<>();
