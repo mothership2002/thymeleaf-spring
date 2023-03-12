@@ -9,6 +9,7 @@ public class StringToIntegerConverter implements Converter<String, Integer> {
     @Override
     public Integer convert( String source ) {
         log.info( "convert source = {}", source );
+        log.info( "before converted Type = {}", source.getClass() );
         return Integer.valueOf( source );
     }
 
